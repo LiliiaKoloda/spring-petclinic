@@ -6,7 +6,7 @@ ADD pom.xml /code/pom.xml
 ADD src /code/src
 FROM java:8-jre
 
-COPY --from=0 /code/target/spring-petclinic-2.7.0-SNAPSHOT.jar /
+COPY --from=0 /target/spring-petclinic-2.7.0-SNAPSHOT.jar /
 
 # expose http and debug ports
 EXPOSE 8080 8000

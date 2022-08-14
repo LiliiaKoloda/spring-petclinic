@@ -1,13 +1,1 @@
 rootProject.name = 'spring-petclinic'
-
-plugins {
-  id "org.sonarqube" version "3.3"
-}
-
-sonarqube {
-  properties {
-    property "sonar.projectKey", "java-sonar-runner-simple"
-    property "sonar.organization", "admin"
-    property "sonar.host.url", "https://sonarcloud.io"
-  }
-}

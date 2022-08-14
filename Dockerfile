@@ -1,10 +1,9 @@
 FROM maven:3.5-jdk-8
 
-WORKDIR /code
+WORKDIR /workspace
 
-ADD pom.xml /code/pom.xml
-ADD src /code/src
-RUN ["mvn", "package", "-DskipTests=true"]
+ADD pom.xml /workspace/CI_CD-spring-petlinic/pom.xml
+ADD src /workspace/CI_CD-spring-petlinic/src
 
 FROM java:8-jre
 

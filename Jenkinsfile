@@ -59,7 +59,7 @@ pipeline{
         }
         stage('Docker build&push image'){
             steps{
-                sh 'docker build -t liliiakoloda/petclinic .'
+                sh 'mvn spring-boot:build-image'
                 sh 'docker login -u liliiakoloda -p Kristina3075!'
                 sh 'docker push liliiakoloda/petclinic'
             }
@@ -72,13 +72,9 @@ pipeline{
             }
         }
         stage('Deploying application on EKS cluster'){
-            steps {
-                script {
-                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '') {
-                    sh "kubectl apply -f eks-deploy-from-ecr.yaml"
-                }
+            steps{
+                sh 'kubectl apply -f eks-deploy-from-ecr.yaml'
             }
         }
     }
-}
 }

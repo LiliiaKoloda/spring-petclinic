@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-ak-deployment
+  name: petclinic
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: spring-app
+      app: petclinic
   template:
     metadata:
       labels:
         app: spring-app
     spec:
       containers:
-      - name: my-spring-app
+      - name: petclinic
         image: liliiakoloda/petclinic:latest
         imagePullPolicy: Always
         ports:
@@ -23,7 +23,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-app-svc
+  name: petclinic
 spec:
   selector:
     app: angular-app

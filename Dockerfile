@@ -4,7 +4,6 @@ WORKDIR /code
 
 ADD pom.xml /code/pom.xml
 ADD src /code/src
-
 FROM java:8-jre
 
 COPY --from=0 /code/target/spring-petclinic-2.7.0-SNAPSHOT.jar /

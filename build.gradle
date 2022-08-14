@@ -2,6 +2,7 @@ plugins {
   id 'org.springframework.boot' version '2.6.6'
   id 'io.spring.dependency-management' version '1.0.11.RELEASE'
   id 'java'
+  id 'sonarqube' version '3.3'
 }
 
 apply plugin: 'java'
@@ -38,4 +39,11 @@ dependencies {
 
 test {
   useJUnitPlatform()
+}
+
+sonarqube {
+    properties {
+        property 'sonar.host.url', 'http:54.237.202.138:9000'
+        property 'sonar.login', 'admin'
+    }
 }

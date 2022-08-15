@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: spring-app
+        app: petclinic
     spec:
       containers:
       - name: petclinic
@@ -26,7 +26,7 @@ metadata:
   name: petclinic
 spec:
   selector:
-    app: angular-app
+    app: petclinic
   ports:
     - protocol: TCP
       port: 8085

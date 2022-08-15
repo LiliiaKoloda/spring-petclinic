@@ -73,7 +73,7 @@ pipeline{
         }
         stage('Deploying application on EKS cluster'){
             steps{
-                sh 'kubectl apply -f eks-deploy-from-ecr.yaml'
+                sh 'kubectl apply -f eks-deploy-from-eks.yaml'
             }
         }
     }

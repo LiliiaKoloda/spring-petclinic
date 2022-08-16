@@ -32,5 +32,3 @@ spec:
       port: 8085
       targetPort: 8085
   type: LoadBalancer
-  externalIPs:
-  - 192.168.0.10

@@ -32,5 +32,3 @@ spec:
       port: 8085
       targetPort: 8085
   type: LoadBalancer
-  externalIPs:
-  - abcbbd5f9109e4a8080d36a964de66b9-499533523.us-east-1.elb.amazonaws.com

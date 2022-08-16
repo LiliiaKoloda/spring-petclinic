@@ -1,16 +1,19 @@
+# K8s example - Nginx Namespace
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: petclinic
+  name: petclinic-ns
   labels:
-    name: petclinic
+    name: petclinic-ns
 ---
+# K8s example - Nginx Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: petclinic
+  namespace: petclinic-ns
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: petclinic
@@ -20,18 +23,25 @@ spec:
         app: petclinic
     spec:
       containers:
-      - name: petclinic
-        image: liliiakoloda/petclinic:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8085
-# service type loadbalancer
+        - name: petclinic
+          image: liliiakoloda/petclinic:latest
+          ports:
+            - name: web
+              containerPort: 8085
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 100m
+            limits:
+              memory: 256Mi
+              cpu: 250m
 ---
+# K8s example - Nginx Load Balancer (NLB)
 apiVersion: v1
 kind: Service
 metadata:
-  name: petclinic
-  namespace: petclinic
+  name: petclinic-nlb
+  namespace: petclinic-ns
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
 spec:

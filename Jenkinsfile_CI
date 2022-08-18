@@ -9,26 +9,26 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/LiliiaKoloda/spring-petclinic.git'
             }
             post{
-                changed{
-                    mail to: "lilia.koloda14@gmail.com",
+                always{
+                    mail to: 'lilia.koloda14@gmail.com',
                     subject: "jenkins checkout:${currentBuild.currentResult}: ${env.JOB_NAME}",
                     body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
                 }
             }
         }
-        stage('Build'){
+        stage('Test&Build'){
             steps{
                 sh 'mvn package'
             }
             post{
-                changed{
-                    mail to: "lilia.koloda14@gmail.com",
-                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                always{
+                    mail to: 'lilia.koloda14@gmail.com',
+                    subject: "jenkins Test&Build:${currentBuild.currentResult}: ${env.JOB_NAME}",
                     body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
                 }
             }
         }
-        stage('Test'){
+        stage('Test Sonarqube'){
             steps{
                 script{
                     withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
@@ -38,9 +38,9 @@ pipeline{
                 }
             }
             post{
-                changed{
-                    mail to: "lilia.koloda14@gmail.com",
-                    subject: "jenkins test:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                always{
+                    mail to: 'lilia.koloda14@gmail.com',
+                    subject: "jenkins Test Sonarqube:${currentBuild.currentResult}: ${env.JOB_NAME}",
                     body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
                 }
             }
@@ -50,9 +50,9 @@ pipeline{
                 sh 'mvn clean'
             }
             post{
-                changed{
-                    mail to: "lilia.koloda14@gmail.com",
-                    subject: "jenkins package:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                always{
+                    mail to: 'lilia.koloda14@gmail.com',
+                    subject: "jenkins Clean:${currentBuild.currentResult}: ${env.JOB_NAME}",
                     body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
                 }
             }
@@ -64,16 +64,11 @@ pipeline{
                 sh 'docker push liliiakoloda/petclinic'
             }
             post{
-                changed{
-                    mail to: "lilia.koloda14@gmail.com",
+                always{
+                    mail to: 'lilia.koloda14@gmail.com',
                     subject: "jenkins Docker build&push image:${currentBuild.currentResult}: ${env.JOB_NAME}",
                     body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
                 }
-            }
-        }
-        stage('Deploying application on EKS cluster'){
-            steps{
-                sh 'kubectl apply -f eks-deploy-from-eks.yaml'
             }
         }
     }

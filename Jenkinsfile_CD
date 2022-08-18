@@ -1,0 +1,32 @@
+pipeline{
+    agent{label 'slave_static'}
+    tools {
+        maven 'M3'
+    }
+    stages{
+        stage('Checkout eks-deploy-from-eks.yaml'){
+            steps{
+                git branch: 'main', url: 'https://github.com/LiliiaKoloda/spring-petclinic.git'
+            }
+            post{
+                always{
+                    mail to: "lilia.koloda14@gmail.com",
+                    subject: "jenkins checkout:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+                }
+            }
+        }
+        stage('Deploying application on EKS cluster'){
+            steps{
+                sh 'kubectl apply -f eks-deploy-from-eks.yaml'
+            }
+            post{
+                always{
+                    mail to: "lilia.koloda14@gmail.com",
+                    subject: "jenkins Deploying application on EKS cluster:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+                }
+            }
+        }
+    }
+}

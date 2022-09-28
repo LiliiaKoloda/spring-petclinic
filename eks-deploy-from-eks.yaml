@@ -1,34 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: spring-petclinic
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: spring-petclinic
-  template:
-    metadata:
-      labels:
-        app: spring-petclinic
-    spec:
-      containers:
-      - name: spring-petclinic
-        image: liliiakoloda/spring-petclinic:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
-# service type loadbalancer
----
 apiVersion: v1
-kind: Service
+kind: Secret
 metadata:
-  name: spring-petclinic
-spec:
-  selector:
-    app: spring-petclinic
-  ports:
-    - protocol: TCP
-      port: 8085
-      targetPort: 8085
-  type: LoadBalancer
+  # this is the jenkins id.
+  name: "a-test-eks"
+  labels:
+    # so we know what type it is.
+    "jenkins.io/credentials-type": "eks"
+  annotations:
+    # description - can not be a label as spaces are not allowed
+    "jenkins.io/credentials-description": "eks1 token"
+type: Opaque
+data:
+  awsCredentialsId: aws_cred
+  clusterName: petclinic
+  region: us-east-1

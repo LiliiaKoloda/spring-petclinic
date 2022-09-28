@@ -17,7 +17,7 @@ spec:
         image: liliiakoloda/spring-petclinic:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8085
+        - containerPort: 8080
 # service type loadbalancer
 ---
 apiVersion: v1

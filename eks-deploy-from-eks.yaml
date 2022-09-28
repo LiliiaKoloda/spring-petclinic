@@ -13,7 +13,7 @@ spec:
         app: petclinic
     spec:
       containers:
-      - name: petclinic
+      - name: spring-petclinic
         image: liliiakoloda/spring-petclinic:latest
         imagePullPolicy: Always
         ports:

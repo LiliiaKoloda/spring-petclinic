@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: spring-petclinic
-        image: liliiakoloda/spring-petclinic
+        image: liliiakoloda/spring-petclinic:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8085

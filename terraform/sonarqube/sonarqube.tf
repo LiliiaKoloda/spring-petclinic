@@ -6,21 +6,13 @@ terraform {
   required_version = ">= 1.0.7"
 }
 
-variable "key_path" {
-  default = "~/.ssh/id_rsa.pub"
-}
 
-resource "aws_key_pair" "id_rsa_key" {
-  key_name   = "id_rs.pub"
-  public_key = file("${var.key_path}")
-}
 
 resource "aws_instance" "instance" {
-  ami                         = "ami-052efd3df9dad4825"
+  ami                         = "ami-0574da719dca65348"
   instance_type               = "t2.medium"
-  key_name                    = aws_key_pair.id_rsa_key.id
   vpc_security_group_ids      = [aws_security_group.sg.id]
-  subnet_id                   = "subnet-0ad84fb7ebd44abdd"
+  subnet_id                   = "subnet-0aafce39a8d7e85e1"
   associate_public_ip_address = true
 
   root_block_device {
@@ -34,8 +26,8 @@ resource "aws_instance" "instance" {
 }
 
 resource "aws_security_group" "sg" {
-  name        = "Spring-petclinic-SG"
-  description = "Spring-petclinic server"
+  name        = "Sonarqube"
+  description = "Sonarqube"
 
   ingress {
     from_port   = 22
@@ -72,10 +64,10 @@ resource "aws_security_group" "sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  vpc_id = "vpc-0dbd95301c6eb292c"
+  vpc_id = "vpc-0e0f0e5d43611f9ee"
 
   tags = {
-    Name = "Spring-petclinic-Server-SG"
+    Name = "Sonarqube"
   }
 }
 

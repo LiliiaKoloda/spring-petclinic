@@ -28,7 +28,7 @@ spec:
   selector:
     app: spring-petclinic
   ports:
-    - protocol: TCP
+    - protocol: HTTP
       port: 8085
       targetPort: 8085
   type: LoadBalancer
